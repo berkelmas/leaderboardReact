@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -7,12 +8,13 @@ const Header = () => {
         style={{ backgroundColor: "#65B8F9" }}
         className="navbar navbar-expand-lg shadow"
       >
-        <a
+        <Link
           style={{ fontFamily: "Poppins", color: "#ffffff" }}
           className="navbar-brand"
+          to="/"
         >
           Leaderboard
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -29,14 +31,28 @@ const Header = () => {
           <ul className="navbar-nav mr-auto"></ul>
           <ul className="navbar-nav">
             <li style={{ fontFamily: "Poppins" }} className="nav-item mr-4">
-              <a style={{ fontFamily: "Poppins", color: "#ffffff" }}>
+              <Link
+                style={{
+                  fontFamily: "Poppins",
+                  color: "#ffffff",
+                  textDecoration: "None",
+                }}
+                to={"/"}
+              >
                 All Leaderboard
-              </a>
+              </Link>
             </li>
             <li style={{ fontFamily: "Poppins" }} className="nav-item">
-              <a style={{ fontFamily: "Poppins", color: "#ffffff" }}>
+              <Link
+                style={{
+                  fontFamily: "Poppins",
+                  color: "#ffffff",
+                  textDecoration: "none",
+                }}
+                to={"/country-leaderboard"}
+              >
                 Country Leaderboard
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

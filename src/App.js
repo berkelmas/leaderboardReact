@@ -4,6 +4,8 @@ import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Header from "./components/Header";
 import MainPage from "./components/MainPage";
+import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import CountryLeaderboardPage from "./components/CountryLeaderboardPage";
 
 const theme = createMuiTheme({
   palette: {
@@ -35,10 +37,18 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      <div className="p-4 mt-3">
-        <MainPage />
-      </div>
+      <BrowserRouter>
+        <Header />
+        <div className="p-4 mt-3">
+          <Route path="/" exact component={MainPage} />
+          <Route
+            path="/country-leaderboard"
+            exact
+            component={CountryLeaderboardPage}
+          />
+          <Redirect path="*" to={"/"} />
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
