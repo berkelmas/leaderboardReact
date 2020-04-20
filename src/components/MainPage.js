@@ -12,7 +12,12 @@ import Typography from "@material-ui/core/Typography";
 import Pagination from "@material-ui/lab/Pagination";
 import Button from "@material-ui/core/Button";
 import InfoIcon from "@material-ui/icons/Info";
-import Modal from "@material-ui/core/Modal";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import GroupAddIcon from "@material-ui/icons/GroupAddOutlined";
+
+import PersonDetailsModal from "./PersonDetailsModal";
+import PersonAddModal from "./PersonAddModal";
 
 import { getAllLeaderboard } from "../services/leaderboard-service";
 
@@ -36,19 +41,34 @@ const MainPage = () => {
     });
   }, [pageSkip]);
 
+  const [addPersonModalOpen, setAddPersonModalOpen] = useState(false);
+
   return (
     <>
       <Paper style={{ padding: "25px" }} elevation={4}>
-        <Typography variant="h4" gutterBottom>
-          Leaderboard
-        </Typography>
-        <Typography
-          style={{ color: "#767676" }}
-          variant="subtitle1"
-          className="mb-4"
-        >
-          Here you can view all leaderboard by page.
-        </Typography>
+        <div className="d-flex justify-content-between align-items-center">
+          <div>
+            <Typography variant="h4" gutterBottom>
+              Leaderboard
+            </Typography>
+            <Typography
+              style={{ color: "#767676" }}
+              variant="subtitle1"
+              className="mb-4"
+            >
+              Here you can view all leaderboard by page.
+            </Typography>
+          </div>
+          <div className="d-flex">
+            <Fab
+              onClick={() => setAddPersonModalOpen(true)}
+              color="primary"
+              aria-label="add"
+            >
+              <AddIcon />
+            </Fab>
+          </div>
+        </div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -95,48 +115,21 @@ const MainPage = () => {
           />
         </TableContainer>
       </Paper>
-      <Modal
-        className="d-flex justify-content-center align-items-center"
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-      >
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            minWidth: 600,
-            minHeight: 300,
-            border: "none",
-            outline: "none",
-            borderRadius: 2,
-          }}
-          className="p-3 shadow"
-        >
-          <Typography variant="h4" gutterBottom>
-            {selectedUser.display_name}
-          </Typography>
-          <Typography
-            style={{ color: "#484848" }}
-            variant="h5"
-            className="mb-4 mt-4"
-          >
-            Points: {selectedUser.points}
-          </Typography>
-          <Typography
-            style={{ color: "#484848" }}
-            variant="h5"
-            className="mb-4 mt-3"
-          >
-            Country: {selectedUser.country}
-          </Typography>
-          <Typography
-            style={{ color: "#484848" }}
-            variant="h5"
-            className="mb-4 mt-3"
-          >
-            Rank: {selectedUser.rank}
-          </Typography>
-        </div>
-      </Modal>
+      <PersonDetailsModal
+        setModalOpen={setModalOpen}
+        selectedUser={selectedUser}
+        modalOpen={modalOpen}
+      />
+      <PersonAddModal
+        setAddPersonModalOpen={setAddPersonModalOpen}
+        addPersonModalOpen={addPersonModalOpen}
+        renewData={() => {
+          getAllLeaderboard(pageSkip, pageSkip + 9).then((res) => {
+            setRows(res.data.result);
+            setTotalNumber(res.data.totalNumber);
+          });
+        }}
+      />
     </>
   );
 };

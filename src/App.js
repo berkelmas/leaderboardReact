@@ -4,7 +4,7 @@ import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Header from "./components/Header";
 import MainPage from "./components/MainPage";
-import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import { Route, Redirect, BrowserRouter } from "react-router-dom";
 import CountryLeaderboardPage from "./components/CountryLeaderboardPage";
 
 const theme = createMuiTheme({

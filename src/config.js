@@ -1,3 +1,3 @@
 export const config = {
-  apiEndpoint: "http://localhost:2000/",
+  apiEndpoint: "http://leaderboard.berkelmas.com/",
 };
